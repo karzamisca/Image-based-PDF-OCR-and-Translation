@@ -11,11 +11,11 @@ from deep_translator import GoogleTranslator  # For translation
 ocr = PaddleOCR(use_angle_cls=True, lang='ch')
 
 # Initialize the Google Translator for deep-translator
-translator = GoogleTranslator(source='zh', target='vi')
+translator = GoogleTranslator(source='zh-CN', target='vi')
 
 # Path to folder containing PDF files
-pdf_folder = '/path/to/pdf/folder'
-output_folder = '/path/to/output/folder'
+pdf_folder = 'input'
+output_folder = 'output'
 
 # Ensure output folder exists
 if not os.path.exists(output_folder):
@@ -39,7 +39,7 @@ A4_HEIGHT_POINTS = 842.36  # A4 height in points
 # Function to convert PDF page to high-resolution image (600 DPI)
 def pdf_page_to_high_res_image(pdf_document, page_number):
     page = pdf_document.load_page(page_number)  # Load the page
-    zoom = 4  # Set zoom factor for higher resolution (4x gives 600 DPI)
+    zoom = 20  # Set zoom factor for higher resolution (4x gives 600 DPI)
     mat = fitz.Matrix(zoom, zoom)  # Create matrix for zoom
     pix = page.get_pixmap(matrix=mat)  # Get the pixmap with the desired zoom
     image = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)  # Convert to PIL Image
